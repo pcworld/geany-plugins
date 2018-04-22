@@ -353,10 +353,12 @@ void cmd_goto_column(CmdContext *c, CmdParams *p)
 
 void cmd_goto_matching_brace(CmdContext *c, CmdParams *p)
 {
-	gint matching_pos;
 	gint pos = p->pos;
-	while (pos < p->line_end_pos) {
-		if ((matching_pos = SSM(p->sci, SCI_BRACEMATCH, pos, 0)) != -1) {
+	while (pos < p->line_end_pos)
+	{
+		gint matching_pos = SSM(p->sci, SCI_BRACEMATCH, pos, 0);
+		if (matching_pos != -1)
+		{
 			SET_POS(p->sci, matching_pos, TRUE);
 			return;
 		}
